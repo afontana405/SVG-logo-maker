@@ -40,6 +40,11 @@ inquirer.prompt([
     const svgText = newSVG.changeText(data.text, data.textColor);
     const svgShape = newSVG.changeShape(newShape);
     const finalSvg = newSVG.buildSvg(svgText, svgShape);
-    fs.promises.writeFile('./logo.svg', finalSvg);
+    if (data.text.length > 3) {
+        console.log('Text must be no longer than 3 characters.')
+    } else {
+        fs.promises.writeFile('./logo.svg', finalSvg);
+        console.log('SVG created');
+    }
 })
 .catch(err => console.error(err));
