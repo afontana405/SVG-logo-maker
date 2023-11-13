@@ -37,8 +37,9 @@ inquirer.prompt([
         newShape = new Triangle(data);
     }
     newShape.setColor(data.shapeColor);
-    newSVG.changeText(data.text, data.textColor);
-    newSVG.changeShape(newShape);
-    console.log(newSVG);
+    const svgText = newSVG.changeText(data.text, data.textColor);
+    const svgShape = newSVG.changeShape(newShape);
+    const finalSvg = newSVG.buildSvg(svgText, svgShape);
+    fs.promises.writeFile('./logo.svg', finalSvg);
 })
 .catch(err => console.error(err));
