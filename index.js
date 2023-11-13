@@ -2,7 +2,6 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const {Circle, Square, Triangle} = require('./lib/shape.js');
 const Svg = require('./lib/svg.js');
-var answer = [];
 
 inquirer.prompt([
     {
@@ -28,20 +27,17 @@ inquirer.prompt([
     },
 ])
 .then((data) => {
-    answer = data
-})
-.then((answer) => {
-    let newSVG = new Svg();
+    let newSVG = new Svg(data);
     let newShape;
-    if (answer.shape === 'Circle') {
-        newShape = new Circle();
-    }  else if (answer.shape === 'Square') {
-        newShape = new Square();
-    } else if (answer.shape === 'Triangle') {
-        newShape = new Triangle();
+    if (data.shape === 'Circle') {
+        newShape = new Circle(data);
+    }  else if (data.shape === 'Square') {
+        newShape = new Square(data);
+    } else if (data.shape === 'Triangle') {
+        newShape = new Triangle(data);
     }
-    newShape.setColor(answer.shapeColor);
-    newSVG.changeText(answer.text, answer.textColor);
+    newShape.setColor(data.shapeColor);
+    newSVG.changeText(data.text, data.textColor);
     newSVG.changeShape(newShape);
     console.log(newSVG);
 })
