@@ -1,7 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const {Circle, Square, Triangle} = require('../lib/shape.js');
-const Svg = require('../lib/svg.js');
+const {Circle, Square, Triangle} = require('./lib/shape.js');
+const Svg = require('./lib/svg.js');
+var answer = [];
 
 inquirer.prompt([
     {
@@ -26,7 +27,11 @@ inquirer.prompt([
         message: 'What color should the text be?',
     },
 ])
-.then(answer => {
+.then((data) => {
+    answer = data
+})
+.then((answer) => {
+    let newSVG = new Svg();
     let newShape;
     if (answer.shape === 'Circle') {
         newShape = new Circle();
@@ -36,7 +41,6 @@ inquirer.prompt([
         newShape = new Triangle();
     }
     newShape.setColor(answer.shapeColor);
-    let newSVG = new Svg();
     newSVG.changeText(answer.text, answer.textColor);
     newSVG.changeShape(newShape);
     console.log(newSVG);
