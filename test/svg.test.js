@@ -5,8 +5,8 @@ describe('Svg', () => {
         it('should return a div with the users text and color choices', () => {
             const data = {text: 'css', textColor: 'green', shape: 'square'};
             const text = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="green">css</text>`;
-            const svg = new Svg(data);
-            expect(svg.changeText("css", "green")).toEqual(text);
+            const textChanger = new Svg(data).changeText("css", "green");
+            expect(textChanger).toEqual(text);
         })
     });
 })
